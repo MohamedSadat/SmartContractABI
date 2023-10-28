@@ -37,31 +37,47 @@ namespace BinaryProj.Services
         }
         public void CreateContract(ContractModel contract)
         {
-            using (var stream = File.Create($"{contract.Name}.dat"))
+            if (Directory.Exists("Contracts") == false)
+            {
+                Directory.CreateDirectory("Contracts");
+            }
+            using (var stream = File.Create($"Contracts\\{contract.Name}.dat"))
             {
                 using (var writer = new BinaryWriter(stream, Encoding.UTF8))
                 {
-                    writer.Write(contract.FromAccount);
-                    writer.Write(contract.ToAccount);
+                    writer.Write(contract.Owner);
                     writer.Write(contract.Balance);
-                    writer.Write(contract.TransDate.ToString());
+                  //  writer.Write(contract.FromAccount);
+                  //  writer.Write(contract.ToAccount);
+                  //  writer.Write(contract.TransDate.ToString());
 
-                    Console.WriteLine("Size is {0}", stream.Length);
+                    Console.WriteLine("Contract {0}, Size is {1}",contract.Name, stream.Length);
                 }
 
             }
         }
-        public ContractModel ReadContract(string name)
+        public ContractModel ReadContract(string contractname)
         {
+            if (string.IsNullOrEmpty(contractname))
+            {
+                return new ContractModel { ErrorMessage = "Contract is empty" };
+            }
+
+            if (File.Exists(contractname)==false)
+            {
+                return new ContractModel { ErrorMessage="Contract not exist"};
+            }
+
             var contract = new ContractModel();
-            using (var stream = File.Open($"{name}.dat", FileMode.Open))
+            using (var stream = File.Open($"Contracts\\{contractname}.dat", FileMode.Open))
             {
                 using (var reader = new BinaryReader(stream, Encoding.UTF8))
                 {
-                    contract.FromAccount = reader.ReadString();
-                    contract.ToAccount = reader.ReadString();
+                    contract.Owner= reader.ReadString();
                     contract.Balance = reader.ReadUInt32();
-                    contract.TransDate = Convert.ToDateTime(reader.ReadString());
+                  //  contract.FromAccount = reader.ReadString();
+                   // contract.ToAccount = reader.ReadString();
+                  //  contract.TransDate = Convert.ToDateTime(reader.ReadString());
 
                 }
             }

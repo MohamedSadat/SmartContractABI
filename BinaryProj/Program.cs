@@ -6,80 +6,53 @@ namespace BinaryProj
     {
         static void Main(string[] args)
         {
-            var x=new Services.ContractService();
-        
-            var contract = new Data.ContractModel {
-                Name="sadat",
-                FromAccount="sadat",
-                ToAccount="moham",
-                Balance=100,
-            };
-              x.CreateContract(contract);
+            var x = new Services.ContractService();
+            var xapp = new Services.AppService();
+            xapp.CreateDB();
+            xapp.AddMessage(new Data.MessageModel { Sender = "owner", Reseiver = "sadat", Amount = 1000000 });
+            xapp.AddMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 100 });
+            xapp.AddMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 200 });
+            xapp.AddMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "Ahmed", Amount = 50000 });
+            //Get message size in bytes
+          
+            var messages = xapp.GetMessages();
+            //All messages
+            foreach (var msg in messages)
+            {
+                Console.WriteLine("Sender: {0} Reseiver: {1} Amount: {2} Hash: {3}", msg.Sender, msg.Reseiver, msg.Amount, msg.MessageHash);
+            }
 
-            var rcontract = x.ReadContract("sadat");
-            Console.WriteLine("From: {0} To: {1} Amout: {2} date: {3}", rcontract.FromAccount, rcontract.ToAccount, rcontract.Balance,rcontract.TransDate);
+            //Get balance
+            var balance = xapp.GetBalanceEx("sadat");
+            Console.WriteLine("Balance: {0}", balance);
+
+            //Get Trans account
+            Console.WriteLine($"Msg count:  {xapp.GetMsgCount()}");
+            xapp.UpdateMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 290000 });
+            //Create contract
+            Console.WriteLine("Create contract");
+            var contract = new Data.ContractModel
+            {
+                Owner = "sadat",
+                Name = "app1",
+                FromAccount = "sadat",
+                ToAccount = "moham",
+                Balance = 200,
+            };
+            x.CreateContract(contract);
+
+            //Read contract
+            Console.WriteLine("Read contract");
+            var rcontract = x.ReadContract("app1");
+            Console.WriteLine("Owner: {0} Balance: {1} date: {2}", rcontract.Owner, rcontract.Balance, rcontract.TransDate);
+
+            contract.Balance = 100000;
+            x.CreateContract(contract);
+            rcontract = x.ReadContract("app1");
+            Console.WriteLine("Owner: {0} Balance: {1} date: {2}", rcontract.Owner, rcontract.Balance, rcontract.TransDate);
 
             Console.ReadKey();
 
-            return;
-        if(File.Exists("file.pdf"))
-            {
-                Console.WriteLine("File exists");
-                using (var stream = File.Open("file.pdf", FileMode.Open))
-                {
-
-                    using (var reader = new BinaryReader(stream, Encoding.UTF8))
-                    {
-                        var str = reader.ReadBytes((int)stream.Length);
-                    
-                        using (var writer = new BinaryWriter(File.Open("file2.pdf", FileMode.Create), Encoding.UTF8))
-                        {
-                            writer.Write(str);
-                        }
-
-                    }
-                }
-            }
-        else
-            {
-                Console.WriteLine("File does not exist");
-            }
-        using(var stream=File.Create("newfile.dat"))
-            {
-                using(var writer=new BinaryWriter(stream,Encoding.UTF8))
-                {
-                    writer.Write('a');
-                    Console.WriteLine("Size is {0}",stream.Length);
-                    writer.Write('\0');
-                    writer.Write('b');
-                    writer.Write('\0');
-
-                    writer.Write('b');
-
-                    Console.WriteLine("Size is {0}", stream.Length);
-                }
-       
-            }
-        //using(var stream=File.Open("newfile.dat",FileMode.Open))
-        //    {
-        //        using (var reader = new BinaryReader(stream, Encoding.UTF8))
-        //        {
-        //            stream.Position = 0;
-        //          //  stream.Seek(0, SeekOrigin.Current);
-        //            byte[] buffer = new byte[1];
-        //            reader.Read(buffer, 0, 1);
-        //            foreach(var item in buffer)
-        //            {
-        //                Console.WriteLine(item);
-        //            }
-        //            int result = BitConverter.ToInt32(buffer, 0);
-        //            Console.WriteLine(result);
-              
-        //        }
-        //    }
-     
-       Console.ReadKey();
         }
-
     }
 }
