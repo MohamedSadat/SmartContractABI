@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryProj.Services
+namespace SmartContractLib.Services
 {
     public class HashService
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryProj.Data
+namespace SmartContractLib.Data
 {
     public class ContractModel
     {

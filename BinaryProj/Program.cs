@@ -1,18 +1,19 @@
 ﻿using System.Text;
-
+using SmartContractLib.Services;
+using SmartContractLib.Data;
 namespace BinaryProj
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var x = new Services.ContractService();
-            var xapp = new Services.AppService();
+            var x = new SmartContractLib.Services.ContractService();
+            var xapp = new AppService();
             xapp.CreateDB();
-            xapp.AddMessage(new Data.MessageModel { Sender = "owner", Reseiver = "sadat", Amount = 1000000 });
-            xapp.AddMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 100 });
-            xapp.AddMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 200 });
-            xapp.AddMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "Ahmed", Amount = 50000 });
+            xapp.AddMessage(new MessageModel { Sender = "owner", Reseiver = "sadat", Amount = 1000000 });
+            xapp.AddMessage(new MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 100 });
+            xapp.AddMessage(new MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 200 });
+            xapp.AddMessage(new MessageModel { Sender = "sadat", Reseiver = "Ahmed", Amount = 50000 });
             //Get message size in bytes
           
             var messages = xapp.GetMessages();
@@ -28,18 +29,20 @@ namespace BinaryProj
 
             //Get Trans account
             Console.WriteLine($"Msg count:  {xapp.GetMsgCount()}");
-            xapp.UpdateMessage(new Data.MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 290000 });
+            xapp.UpdateMessage(new MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 290000 });
+           
             //Create contract
             Console.WriteLine("Create contract");
-            var contract = new Data.ContractModel
+            var contract = new ContractModel
             {
                 Owner = "sadat",
-                Name = "app1",
+                Name = "tezos",
                 FromAccount = "sadat",
                 ToAccount = "moham",
                 Balance = 200,
             };
             x.CreateContract(contract);
+            xapp.PublishContract(contract);
 
             //Read contract
             Console.WriteLine("Read contract");

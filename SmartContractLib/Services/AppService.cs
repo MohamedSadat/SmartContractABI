@@ -1,4 +1,5 @@
-﻿using BinaryProj.Data;
+﻿
+using SmartContractLib.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryProj.Services
+namespace SmartContractLib.Services
 {
     public class AppService
     {
@@ -58,6 +59,51 @@ namespace BinaryProj.Services
                     writer.Write(msg.Amount);
                     writer.Write(msg.MessageHash);
 
+                }
+            }
+        }
+        public void PublishContract(ContractModel contract)
+        {
+            if(GetContract(contract.Name)==true)
+            {
+                Console.WriteLine("Contract already exist");
+                return;
+            }
+            using (var stream = File.Open($"contracts.dat", FileMode.Append))
+            {
+                //Append will add to the end of the file
+                using (var writer = new BinaryWriter(stream, Encoding.UTF8))
+                {
+                    //   writer.Seek(0, SeekOrigin.End);
+                    writer.Write(contract.Name);
+                    writer.Write(contract.Owner);
+                    writer.Write(contract.Balance);
+         
+                }
+            }
+        }
+        public bool GetContract(string name)
+        {
+            var contraact=new ContractModel();
+            using (var stream = File.Open($"contracts.dat", FileMode.Open))
+            {
+                //Append will add to the end of the file
+                using (var reader = new BinaryReader(stream, Encoding.UTF8))
+                {
+                    while (reader.PeekChar() > -1)
+                    {
+                        var contractname = reader.ReadString();
+                        if(contractname==name)
+                        {
+                            contraact.Name= contractname;
+                        //    contraact.Owner = reader.ReadString();
+                            contraact.Balance = reader.ReadUInt32();
+                            return true;
+                        }
+                        stream.Seek(10, SeekOrigin.Current);
+                      
+                    }
+                    return false;
                 }
             }
         }
@@ -158,6 +204,7 @@ namespace BinaryProj.Services
             var count = 0;
             using (var stream = File.Open($"db.dat", FileMode.Open))
             {
+                var size = stream.Length/81;
                 using (var reader = new BinaryReader(stream, Encoding.UTF8))
                 {
                     while (reader.PeekChar() > -1)

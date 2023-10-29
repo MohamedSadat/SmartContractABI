@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryProj.Data
+namespace SmartContractLib.Data
 {
     /// <summary>
     /// Size is 81 bytes

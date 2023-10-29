@@ -1,11 +1,12 @@
-﻿using BinaryProj.Data;
+﻿
+using SmartContractLib.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryProj.Services
+namespace SmartContractLib.Services
 {
     public class ContractService 
     {
