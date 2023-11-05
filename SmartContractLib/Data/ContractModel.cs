@@ -1,4 +1,4 @@
-﻿using BinaryProj.Services;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +16,6 @@ namespace SmartContractLib.Data
         public string ToAccount { get; set; } = "";
         public DateTime TransDate { get; set; } = DateTime.Now;
         public string ErrorMessage { get; set; } = "";
+        public bool IsEmpty { get; set; } = false;
     }
 }

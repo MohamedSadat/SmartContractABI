@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipeClient", "PipeClient\Pi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryProj", "BinaryProj\BinaryProj.csproj", "{62FA6B49-7B48-4276-88E5-9F833BA3F9A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartContractLib", "SmartContractLib\SmartContractLib.csproj", "{1B0A4353-1094-4C2A-A86D-2E128C44EE99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartContractLib", "SmartContractLib\SmartContractLib.csproj", "{1B0A4353-1094-4C2A-A86D-2E128C44EE99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockAPI", "BlockAPI\BlockAPI.csproj", "{14632C72-F19A-482B-A87E-EFBB51BFD722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1B0A4353-1094-4C2A-A86D-2E128C44EE99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B0A4353-1094-4C2A-A86D-2E128C44EE99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B0A4353-1094-4C2A-A86D-2E128C44EE99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14632C72-F19A-482B-A87E-EFBB51BFD722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14632C72-F19A-482B-A87E-EFBB51BFD722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14632C72-F19A-482B-A87E-EFBB51BFD722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14632C72-F19A-482B-A87E-EFBB51BFD722}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

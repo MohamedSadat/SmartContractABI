@@ -13,7 +13,7 @@ namespace SmartContractLib.Data
     {
         public MessageModel() { }
         public string Sender { get; set; } = "";
-        public string Reseiver { get; set; } = "";
+        public string Receiver { get; set; } = "";
         public uint Amount { get; set; } = 0;
         /// <summary>
         /// Size is 65 bytes

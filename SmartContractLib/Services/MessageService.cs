@@ -12,7 +12,7 @@ namespace SmartContractLib.Services
     {
         public void HashMessage(MessageModel msg)
         {
-            msg.MessageHash = HashService.HashAlgoStd($"{msg.Sender}{msg.Reseiver}{msg.Amount}");
+            msg.MessageHash = HashService.HashAlgoStd($"{msg.Sender}{msg.Receiver}{msg.Amount}");
         }
     }
 }

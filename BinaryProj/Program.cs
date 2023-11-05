@@ -10,17 +10,17 @@ namespace BinaryProj
             var x = new SmartContractLib.Services.ContractService();
             var xapp = new AppService();
             xapp.CreateDB();
-            xapp.AddMessage(new MessageModel { Sender = "owner", Reseiver = "sadat", Amount = 1000000 });
-            xapp.AddMessage(new MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 100 });
-            xapp.AddMessage(new MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 200 });
-            xapp.AddMessage(new MessageModel { Sender = "sadat", Reseiver = "Ahmed", Amount = 50000 });
+            xapp.AddMessage(new MessageModel { Sender = "owner", Receiver = "sadat", Amount = 1000000 });
+            xapp.AddMessage(new MessageModel { Sender = "sadat", Receiver = "moham", Amount = 100 });
+            xapp.AddMessage(new MessageModel { Sender = "sadat", Receiver = "moham", Amount = 200 });
+            xapp.AddMessage(new MessageModel { Sender = "sadat", Receiver = "Ahmed", Amount = 50000 });
             //Get message size in bytes
           
             var messages = xapp.GetMessages();
             //All messages
             foreach (var msg in messages)
             {
-                Console.WriteLine("Sender: {0} Reseiver: {1} Amount: {2} Hash: {3}", msg.Sender, msg.Reseiver, msg.Amount, msg.MessageHash);
+                Console.WriteLine("Sender: {0} Reseiver: {1} Amount: {2} Hash: {3}", msg.Sender, msg.Receiver, msg.Amount, msg.MessageHash);
             }
 
             //Get balance
@@ -29,7 +29,7 @@ namespace BinaryProj
 
             //Get Trans account
             Console.WriteLine($"Msg count:  {xapp.GetMsgCount()}");
-            xapp.UpdateMessage(new MessageModel { Sender = "sadat", Reseiver = "moham", Amount = 290000 });
+            xapp.UpdateMessage(new MessageModel { Sender = "sadat", Receiver = "moham", Amount = 290000 });
            
             //Create contract
             Console.WriteLine("Create contract");

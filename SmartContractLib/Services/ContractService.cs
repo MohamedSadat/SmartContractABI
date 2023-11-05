@@ -10,6 +10,8 @@ namespace SmartContractLib.Services
 {
     public class ContractService 
     {
+        private readonly AppSettingModel app;
+
         public event EventHandler<EventArgs> DepositEvent;
         public event EventHandler<EventArgs> WithdrawEvent;
 
@@ -27,9 +29,9 @@ namespace SmartContractLib.Services
                 WithdrawEvent(this, new EventArgs());
             }
         }
-        public ContractService()
+        public ContractService(AppSettingModel app)
         {
-
+            this.app = app;
         }
         public ContractService(MessageModel msg,ContractModel contract)
         {
@@ -38,11 +40,11 @@ namespace SmartContractLib.Services
         }
         public void CreateContract(ContractModel contract)
         {
-            if (Directory.Exists("Contracts") == false)
+            if (Directory.Exists( app.ContractPath) == false)
             {
-                Directory.CreateDirectory("Contracts");
+                Directory.CreateDirectory( app.ContractPath);
             }
-            using (var stream = File.Create($"Contracts\\{contract.Name}.dat"))
+            using (var stream = File.Create($"{app.ContractPath}\\{contract.Name}.dat"))
             {
                 using (var writer = new BinaryWriter(stream, Encoding.UTF8))
                 {
@@ -61,16 +63,16 @@ namespace SmartContractLib.Services
         {
             if (string.IsNullOrEmpty(contractname))
             {
-                return new ContractModel { ErrorMessage = "Contract is empty" };
+                return new ContractModel { ErrorMessage = "Contract is empty",IsEmpty=true };
             }
 
-            if (File.Exists(contractname)==false)
+            if (File.Exists($"{app.ContractPath}\\{contractname}.dat")==false)
             {
-                return new ContractModel { ErrorMessage="Contract not exist"};
+                return new ContractModel { ErrorMessage=$"Contract not exist",IsEmpty = true };
             }
 
             var contract = new ContractModel();
-            using (var stream = File.Open($"Contracts\\{contractname}.dat", FileMode.Open))
+            using (var stream = File.Open($"{app.ContractPath}\\{contractname}.dat", FileMode.Open))
             {
                 using (var reader = new BinaryReader(stream, Encoding.UTF8))
                 {

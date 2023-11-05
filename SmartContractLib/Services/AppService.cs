@@ -55,7 +55,7 @@ namespace SmartContractLib.Services
                 {
                  //   writer.Seek(0, SeekOrigin.End);
                     writer.Write(msg.Sender);
-                    writer.Write(msg.Reseiver);
+                    writer.Write(msg.Receiver);
                     writer.Write(msg.Amount);
                     writer.Write(msg.MessageHash);
 
@@ -119,7 +119,7 @@ namespace SmartContractLib.Services
                     {
                         var msg = new MessageModel();
                         msg.Sender = reader.ReadString();
-                        msg.Reseiver = reader.ReadString();
+                        msg.Receiver = reader.ReadString();
                         msg.Amount = reader.ReadUInt32();
                         msg.MessageHash = reader.ReadString();
                         messages.Add(msg);
@@ -140,7 +140,7 @@ namespace SmartContractLib.Services
                     {
                         var msg = new MessageModel();
                         msg.Sender = reader.ReadString();
-                        msg.Reseiver = reader.ReadString();
+                        msg.Receiver = reader.ReadString();
                         msg.Amount = reader.ReadUInt32();
                         msg.MessageHash = reader.ReadString();
                         messages.Add(msg);
@@ -162,7 +162,7 @@ namespace SmartContractLib.Services
                     {
                         var msg = new MessageModel();
                         msg.Sender = reader.ReadString();
-                        msg.Reseiver = reader.ReadString();
+                        msg.Receiver = reader.ReadString();
                         msg.Amount = reader.ReadUInt32();
                         msg.MessageHash = reader.ReadString();
                         messages.Add(msg);
@@ -170,7 +170,7 @@ namespace SmartContractLib.Services
                 }
             }
             var sent = messages.Where(x => x.Sender == name).Sum(x => x.Amount);
-            var received = messages.Where(x => x.Reseiver == name).Sum(x => x.Amount);
+            var received = messages.Where(x => x.Receiver == name).Sum(x => x.Amount);
             balance =Convert.ToUInt32(received - sent);
             return balance;
         }
@@ -186,7 +186,7 @@ namespace SmartContractLib.Services
                     {
                         var msg = new MessageModel();
                         msg.Sender = reader.ReadString();
-                        msg.Reseiver = reader.ReadString();
+                        msg.Receiver = reader.ReadString();
                         msg.Amount = reader.ReadUInt32();
                         stream.Seek(65, SeekOrigin.Current);
                       //  msg.MessageHash = reader.ReadString();
@@ -195,7 +195,7 @@ namespace SmartContractLib.Services
                 }
             }
             var sent = messages.Where(x => x.Sender == name).Sum(x => x.Amount);
-            var received = messages.Where(x => x.Reseiver == name).Sum(x => x.Amount);
+            var received = messages.Where(x => x.Receiver == name).Sum(x => x.Amount);
             balance = Convert.ToUInt32(received - sent);
             return balance;
         }
